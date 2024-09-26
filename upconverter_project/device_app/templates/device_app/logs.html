@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Monitoring and Control</title>
+    <link rel="stylesheet" href="{% static 'device_app/css/styles.css' %}">
+</head>
+<body background="{% static 'device_app/images/background.jpg' %}">
+    <div class="navbar">
+        <a class="project-name" href="{% url 'device_status' %}">Device Monitoring and Control</a>
+        <div class="date-time" id="dateTime"></div>
+        <a class="btn btn-logout" href="{% url 'logout' %}" >Logout</a>
+    </div>
+    <div class="container">
+        <h1>Device Logs</h1>
+        <table>
+            <tr>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Action</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+            {% for log in logs %}
+                    <tr>
+                        <td>{{ log.timestamp }}</td>
+                        <td>{{ log.user.username }}</td>
+                        <td>{{ log.action }}</td>
+                        <td>{{ log.status }}</td>
+                        <td>{{ log.details }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No logs available.</td>
+                    </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <footer>
+        <p>© 2024 Team 4. All rights reserved.</p>
+    </footer>
+    <script src="{% static 'auth_app/js/script.js' %}"></script>
+</body>
+</html>
